@@ -92,4 +92,26 @@ namespace Kakao{
         
         assert(httpCode==200);
     }
+    
+    void sample(std::string url){
+//        std::string header = "X-Auth-Token: "+token;
+        
+        CURL* curl = curl_easy_init();
+        
+//        struct curl_slist *chunk = NULL;
+//        chunk = curl_slist_append(chunk, header.c_str());
+        //    chunk = curl_slist_append(chunk, "Content-Type: application/json");
+//        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+        
+        //    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, -1L);
+        
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        long httpCode(0);
+        
+        curl_easy_perform(curl);
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
+        curl_easy_cleanup(curl);
+        
+        assert(httpCode==200);
+    }
 };

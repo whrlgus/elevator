@@ -297,8 +297,8 @@ int main(){
         PREV_COMMAND.push_back(COMMAND[STOP]);
     
     
-    func();
-    
+//    func();
+    Kakao::sample("https://swapi.co/api/planets/1/");
     
     return 0;
 }

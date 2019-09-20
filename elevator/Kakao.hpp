@@ -19,6 +19,7 @@ namespace Kakao{
     std::string start(std::string user,std::string problem,int cnt);
     void oncalls(std::string& token, rapidjson::Document& d);
     void action(std::string& token,const char* json);
+    void sample(std::string url);
 };
 
 #endif /* Kakao_hpp */
