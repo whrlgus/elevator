@@ -79,7 +79,7 @@ namespace Kakao{
         chunk = curl_slist_append(chunk, header.c_str());
         //    chunk = curl_slist_append(chunk, "Content-Type: application/json");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
-        
+
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
         //    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, -1L);
         
@@ -113,5 +113,45 @@ namespace Kakao{
         curl_easy_cleanup(curl);
         
         assert(httpCode==200);
+    }
+    
+    void putEx(){
+        CURL* curl = curl_easy_init();
+        struct curl_slist *headers = NULL;
+        const char* client_id_header = "asdf";
+        const char* request_url = "asdf";
+        const char* json_struct = "asdf";
+        CURLcode res;
+
+        
+        if (curl) {
+            headers = curl_slist_append(headers, client_id_header);
+            headers = curl_slist_append(headers, "Content-Type: application/json");
+            
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+            curl_easy_setopt(curl, CURLOPT_URL, request_url);
+            curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT"); /* !!! */
+            
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_struct); /* data goes here */
+            
+            res = curl_easy_perform(curl);
+            
+            curl_slist_free_all(headers);
+            curl_easy_cleanup(curl);
+        }
+    }
+    
+    void deleteEx(){
+        CURL *hnd = curl_easy_init();
+        curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_easy_setopt(hnd, CURLOPT_URL, "http://some/url/");
+        curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"key\": \"value\"}");
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "content-type: application/json");
+        curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+        CURLcode ret = curl_easy_perform(hnd);
+        // do something...
+        curl_slist_free_all(headers);
+        curl_easy_cleanup(hnd);
     }
 };
